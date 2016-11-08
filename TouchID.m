@@ -9,6 +9,8 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(isSupported: (RCTResponseSenderBlock)callback)
 {
     LAContext *context = [[LAContext alloc] init];
+    // Hide Enter Password button when TouchID authentication fails
+    context.localizedFallbackTitle = @"";
     NSError *error;
 
     if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
@@ -24,6 +26,8 @@ RCT_EXPORT_METHOD(authenticate: (NSString *)reason
                       callback: (RCTResponseSenderBlock)callback)
 {
     LAContext *context = [[LAContext alloc] init];
+    // Hide Enter Password button when TouchID authentication fails
+    context.localizedFallbackTitle = @"";
     NSError *error;
 
     // Device has TouchID
